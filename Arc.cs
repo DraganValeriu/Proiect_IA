@@ -30,7 +30,6 @@ namespace Proiect_IA
 
             if (StartNode != null && EndNode != null)
             {
-                Console.WriteLine("aa");
 
                 Graphics g = e.Graphics;
                 g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;

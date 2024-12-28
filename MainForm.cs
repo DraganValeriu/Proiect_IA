@@ -162,8 +162,11 @@ namespace Proiect_IA
                         }
                         if (reader.Name == "GIVEN")
                         {
-                            string str = reader.ReadElementContentAsString();
-                            tempDefinition.Given.Add(nodes.Find(n => n.Name ==  str));
+                            while (reader.Name == "GIVEN" && reader.NodeType == XmlNodeType.Element)
+                            {
+                                string str = reader.ReadElementContentAsString();
+                                tempDefinition.Given.Add(nodes.Find(n => n.Name == str));
+                            }
                         }
                     }
 
@@ -175,6 +178,7 @@ namespace Proiect_IA
                             definitions.Add(x);
                             foreach(var node in x.Given)
                             {
+                                Console.WriteLine($"{node.Name} -> {x.For.Name}");
                                 arcs.Add(new Arc(node, x.For));
                             }
                         }
