@@ -77,6 +77,7 @@
             comboBoxProb.Size = new Size(99, 23);
             comboBoxProb.TabIndex = 10;
             comboBoxProb.Visible = false;
+            comboBoxProb.SelectedIndexChanged += comboBoxProb_SelectedIndexChanged;
             // 
             // buttonCreateArc
             // 

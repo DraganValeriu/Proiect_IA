@@ -62,8 +62,11 @@ namespace Proiect_IA
 
                 // Reset the creation state and message
                 isCreatingNode = false;
-                richTextBox.Text = "";
+               
             }
+            richTextBox.Text = "";
+            comboBoxProb.Visible = false;
+            comboBoxQ.Visible = false;
         }
 
 
@@ -139,8 +142,6 @@ namespace Proiect_IA
             }
 
         }
-
-
 
         private void ReadXMLFile(string fileName)
         {
@@ -273,7 +274,6 @@ namespace Proiect_IA
             }
             comboBoxQ.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxQ.Visible = true;
-
         }
 
         private void comboBoxQ_SelectedIndexChanged(object sender, EventArgs e)
@@ -281,6 +281,11 @@ namespace Proiect_IA
             comboBoxProb.SelectedIndex = Obs[comboBoxQ.SelectedIndex];
             comboBoxProb.Visible = true;
 
+        }
+
+        private void comboBoxProb_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Obs[comboBoxQ.SelectedIndex] = comboBoxProb.SelectedIndex;
         }
     }
 
