@@ -1,4 +1,4 @@
-using System.Globalization;
+﻿using System.Globalization;
 using System.Xml;
 using System.Xml.Linq;
 
@@ -14,10 +14,13 @@ namespace Proiect_IA
 
         List<BayesianDefinition> definitions = new List<BayesianDefinition>();
         List<BayesianVariable> variables = new List<BayesianVariable>();
-        
+
         public Arc NewArc;
 
         public string filePath = "";
+
+        BayesianNetwork _network;
+        BayesianInference _inference;
         public MainForm()
         {
             NewArc = new Arc();
@@ -106,13 +109,11 @@ namespace Proiect_IA
 
         }
 
-      
-
         private void ReadXMLFile(string fileName)
         {
             string xml = File.ReadAllText(fileName);
-            Console.WriteLine(xml);
-            
+            //Console.WriteLine(xml);
+
             var settings = new XmlReaderSettings
             {
                 IgnoreWhitespace = true
@@ -120,14 +121,14 @@ namespace Proiect_IA
             using var reader = XmlReader.Create(new StringReader(xml), settings);
             {
                 BayesianVariable tempVariable = new BayesianVariable("", null);
-                BayesianDefinition tempDefinition = new BayesianDefinition(); 
-                while (reader.Read())
+                BayesianDefinition tempDefinition = new BayesianDefinition();
+                 while (reader.Read())
                 {
                     if (reader.NodeType == XmlNodeType.Element)
                     {
-                        if (reader.Name == "VARIABLE") 
+                        if (reader.Name == "VARIABLE")
                         {
-                           tempVariable.Reset();
+                            tempVariable.Reset();
                         }
                         if (reader.Name == "NAME")
                         {
@@ -147,7 +148,7 @@ namespace Proiect_IA
                             Node node = new Node(v.Name, 0.5, 0.5, v.Position ?? new Point(1, 1), this);
                             nodes.Add(node);
                         }
-                            
+
                     }
                     if (reader.NodeType == XmlNodeType.Element)
                     {
@@ -168,6 +169,11 @@ namespace Proiect_IA
                                 tempDefinition.Given.Add(nodes.Find(n => n.Name == str));
                             }
                         }
+                        if (reader.Name == "TABLE")
+                        {
+                            string str = reader.ReadElementContentAsString();
+                            tempDefinition.Table = str.Split(' ').Select(x => Convert.ToDouble(x)).ToArray<double>();
+                        }
                     }
 
                     if (reader.NodeType == XmlNodeType.EndElement)
@@ -176,9 +182,13 @@ namespace Proiect_IA
                         {
                             var x = new BayesianDefinition(tempDefinition);
                             definitions.Add(x);
-                            foreach(var node in x.Given)
+
+                            var nn = nodes.Find(n => n.Name == x.For.Name);
+                            nn.ProbTable = x.Table;
+                            nn.nrGiven = x.Given.Count;
+                            nn.GivenList = tempDefinition.Given.ToArray();
+                            foreach (var node in x.Given)
                             {
-                                Console.WriteLine($"{node.Name} -> {x.For.Name}");
                                 arcs.Add(new Arc(node, x.For));
                             }
                         }
@@ -186,6 +196,21 @@ namespace Proiect_IA
 
                 }
             }
+            ////
+            //_network = new BayesianNetwork(variables, definitions);
+            //_inference = new BayesianInference(_network);
+            //var evidence = new Dictionary<string, string>
+            //{
+            //    { "Gripa", "F" },
+            //    { "Oboseala", "T" },
+            //    { "Anorexie", "T" }
+            //};
+
+            //double result = _inference.EnumerateAll("Gripa", "F", evidence);
+            //Console.WriteLine($"P(Febra=T | Gripa=T, Abces=F) = {result}");
+
+
+            ///
 
         }
 
@@ -209,14 +234,19 @@ namespace Proiect_IA
             s = s.Remove(s.Length - 1);
             s = s.Remove(0, 1);
             s = s.Remove(s.IndexOf(','), 1);
-           
+
             var sp = s.Split(' ');
-            (string x, string y) = (sp[0],sp[1]);
+            (string x, string y) = (sp[0], sp[1]);
 
             int xPos = ((int)Convert.ToDouble(x)) % 1000;
             int yPos = ((int)Convert.ToDouble(y)) % 1000;
 
             return new Point(xPos, yPos);
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 

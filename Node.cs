@@ -13,6 +13,11 @@ namespace Proiect_IA
         public double probTrue { get; private set; } = 0.5;
         public double probFalse { get; private set; } = 0.5;
 
+        public double[] ProbTable { set; get; }
+        public int nrGiven {  get; set; }
+
+        public Node?[] GivenList { get; set; }
+
         public MainForm _parentForm = null;
         public void setProbability(double probTrue, double probFalse)
         {
@@ -25,11 +30,15 @@ namespace Proiect_IA
 
         public static int NodeSize { get; set; } = 80;
 
-        public Node(string name,double pTrue, double pFalse, Point location, MainForm form)
+        public Node(string name, double pTrue, double pFalse, double[] probTable, int nr, Node?[] given,Point location, MainForm form)
         {
             Name = name;
             probFalse = pFalse;
             probTrue = pTrue;
+            ProbTable = new double[probTable.Length];
+            Array.Copy(probTable, ProbTable, probTable.Length);
+            nrGiven = nr;
+            GivenList = given;
             _parentForm = form;
             this.Width = NodeSize;
             this.Height = NodeSize;
@@ -50,7 +59,31 @@ namespace Proiect_IA
             contextMenuInfo.Items.Add("True:  " + probTrue);
             contextMenuInfo.Items.Add("False: " + probFalse);
         }
+        public Node(string name, double pTrue, double pFalse, Point location, MainForm form)
+        {
+            Name = name;
+            probFalse = pFalse;
+            probTrue = pTrue;
+            _parentForm = form;
+            this.Width = NodeSize;
+            this.Height = NodeSize;
+            this.SetStyle(ControlStyles.SupportsTransparentBackColor, true);
+            this.BackColor = Color.Transparent;
+            //this.Location = new Point(location.X - NodeSize / 2, location.Y - NodeSize / 2);
+            this.Location = new Point(location.X, location.Y);
 
+            this.Paint += Node_Paint;
+            this.MouseClick += Node_MouseClick;
+
+            contextMenuEdit = new ContextMenuStrip();
+            contextMenuEdit.Items.Add("Edit", null, ChangeProbability);
+            contextMenuEdit.Items.Add("Position: " + location.X + ", " + location.Y);
+
+
+            contextMenuInfo = new ContextMenuStrip();
+            contextMenuInfo.Items.Add("True:  " + probTrue);
+            contextMenuInfo.Items.Add("False: " + probFalse);
+        }
         private void Node_Paint(object sender, PaintEventArgs e)
         {
             Graphics g = e.Graphics;
@@ -122,16 +155,12 @@ namespace Proiect_IA
 
         private void ChangeProbability(object sender,EventArgs e)
         {
-            EditNodeForm probabilityForm = new EditNodeForm();
-            probabilityForm.NodeName = this.Name;
-            probabilityForm.ProbabilityTrue = probTrue;
-            probabilityForm.ProbabilityFalse = probFalse;
+             
+            EditNodeForm probabilityForm = new EditNodeForm(this.Name,this.ProbTable, nrGiven, this);
 
             if (probabilityForm.ShowDialog() == DialogResult.OK)
             {
                  this.Name = probabilityForm.NodeName;
-                 probTrue = probabilityForm.ProbabilityTrue;
-                 probFalse = probabilityForm.ProbabilityFalse;
                  UpdateContext();
 
             }

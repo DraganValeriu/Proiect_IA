@@ -32,34 +32,33 @@ namespace Proiect_IA
     public class BayesianDefinition
     {
         public Node? For { get; set; } 
-        public List<Node?> Given { get; set; }  
-        public List<double> Table { get; set; } 
+        public List<Node?> Given { get; set; }
+        public double[] Table { get; set; }
 
-        public BayesianDefinition(Node node, List<Node> nodes, List<double> table)
+        public BayesianDefinition(Node node, List<Node> nodes, double[] table)
         {
-            For = new Node(node.Name, node.probTrue, node.probFalse,  node.Location, node._parentForm);
-            Given = new List<Node?>(nodes);
-            Table = new List<double>(table);
+          
+            Given = nodes;
+            Table = new double[table.Length];
+            Array.Copy(table, Table, Table.Length);
+            For = new Node(node.Name, node.probTrue, node.probFalse, Table, Given.Count(), Given.ToArray(), node.Location, node._parentForm);
         }
 
         public BayesianDefinition()
         {
             For = null;
             Given = new List<Node?>();
-            Table = new List<double>();
+            Table = Array.Empty<double>();
         }
 
-        public BayesianDefinition(BayesianDefinition other)
+        public BayesianDefinition(BayesianDefinition other) : this(other.For, other.Given , other.Table)
         {
-            For = new Node(other.For.Name, other.For.probTrue, other.For.probFalse, other.For.Location, other.For._parentForm);
-            Given = new List<Node?>(other.Given);
-            Table = new List<double>(other.Table);
         }
         public void Reset()
         {
             For = null;
             Given.Clear();
-            Table.Clear();
+            Table = [];
         }
     }
 }

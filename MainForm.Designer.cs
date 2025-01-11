@@ -151,6 +151,7 @@
             Controls.Add(menuStrip2);
             Name = "MainForm";
             Text = "Form1";
+            Load += MainForm_Load;
             menuStrip2.ResumeLayout(false);
             menuStrip2.PerformLayout();
             ResumeLayout(false);
