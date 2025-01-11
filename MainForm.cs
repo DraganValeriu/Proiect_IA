@@ -8,9 +8,9 @@ namespace Proiect_IA
     {
         private bool isCreatingNode = false;
         public bool isCreatingArc { get; private set; } = false;
-
         public bool isRemovingNode { get; private set; } = false;
-    
+        public List<int> Obs;  //0 - fara observatie, 1 - TRUE, 2 - FALSE
+
 
         List<Node> nodes = new List<Node>();
         List<Arc> arcs = new List<Arc>();
@@ -28,6 +28,11 @@ namespace Proiect_IA
             panel1.MouseDown += Panel1_MouseDown;
             richTextBox.SelectionAlignment = HorizontalAlignment.Center;
             // pentru a folosi '.' in loc de ','
+            Obs = new List<int>();
+            comboBoxProb.Items.Add("Undefined");
+            comboBoxProb.Items.Add("True");
+            comboBoxProb.Items.Add("False");
+
             CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
             CultureInfo.DefaultThreadCurrentUICulture = CultureInfo.InvariantCulture;
         }
@@ -49,6 +54,7 @@ namespace Proiect_IA
 
                 // Add it to the list and panel
                 nodes.Add(node);
+                Obs.Add(0);
                 panel1.Controls.Add(node);
 
                 // Bring the new node to the front
@@ -254,6 +260,26 @@ namespace Proiect_IA
 
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
+
+        }
+
+        private void buttonMakeObs_Click(object sender, EventArgs e)
+        {
+            richTextBox.Text = "Select the node from ComboBox \n to create an observation";
+            comboBoxQ.Items.Clear();
+            foreach (Node node in nodes)
+            {
+                comboBoxQ.Items.Add(node.Name);
+            }
+            comboBoxQ.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxQ.Visible = true;
+
+        }
+
+        private void comboBoxQ_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            comboBoxProb.SelectedIndex = Obs[comboBoxQ.SelectedIndex];
+            comboBoxProb.Visible = true;
 
         }
     }

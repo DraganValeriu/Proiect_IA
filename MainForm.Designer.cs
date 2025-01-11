@@ -30,6 +30,7 @@
         {
             buttonCreateNode = new Button();
             panel1 = new Panel();
+            comboBoxProb = new ComboBox();
             buttonCreateArc = new Button();
             richTextBox = new RichTextBox();
             buttonRemoveArc = new Button();
@@ -39,6 +40,9 @@
             loadToolStripMenuItem = new ToolStripMenuItem();
             saveToolStripMenuItem = new ToolStripMenuItem();
             openFileDialog1 = new OpenFileDialog();
+            buttonMakeObs = new Button();
+            comboBoxQ = new ComboBox();
+            panel1.SuspendLayout();
             menuStrip2.SuspendLayout();
             SuspendLayout();
             // 
@@ -57,12 +61,22 @@
             // 
             panel1.AllowDrop = true;
             panel1.BackColor = SystemColors.ControlLight;
+            panel1.Controls.Add(comboBoxProb);
             panel1.Location = new Point(20, 79);
             panel1.Margin = new Padding(2);
             panel1.Name = "panel1";
             panel1.Size = new Size(917, 354);
             panel1.TabIndex = 1;
             panel1.Paint += panel1_Paint;
+            // 
+            // comboBoxProb
+            // 
+            comboBoxProb.FormattingEnabled = true;
+            comboBoxProb.Location = new Point(598, 27);
+            comboBoxProb.Name = "comboBoxProb";
+            comboBoxProb.Size = new Size(99, 23);
+            comboBoxProb.TabIndex = 10;
+            comboBoxProb.Visible = false;
             // 
             // buttonCreateArc
             // 
@@ -148,11 +162,34 @@
             // 
             openFileDialog1.FileName = "openFileDialog1";
             // 
+            // buttonMakeObs
+            // 
+            buttonMakeObs.Location = new Point(521, 28);
+            buttonMakeObs.Margin = new Padding(2);
+            buttonMakeObs.Name = "buttonMakeObs";
+            buttonMakeObs.Size = new Size(99, 44);
+            buttonMakeObs.TabIndex = 8;
+            buttonMakeObs.Text = "Make Observations";
+            buttonMakeObs.UseVisualStyleBackColor = true;
+            buttonMakeObs.Click += buttonMakeObs_Click;
+            // 
+            // comboBoxQ
+            // 
+            comboBoxQ.FormattingEnabled = true;
+            comboBoxQ.Location = new Point(521, 77);
+            comboBoxQ.Name = "comboBoxQ";
+            comboBoxQ.Size = new Size(99, 23);
+            comboBoxQ.TabIndex = 9;
+            comboBoxQ.Visible = false;
+            comboBoxQ.SelectedIndexChanged += comboBoxQ_SelectedIndexChanged;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(959, 449);
+            Controls.Add(comboBoxQ);
+            Controls.Add(buttonMakeObs);
             Controls.Add(buttonRemoveNode);
             Controls.Add(buttonRemoveArc);
             Controls.Add(richTextBox);
@@ -163,6 +200,7 @@
             Margin = new Padding(2);
             Name = "MainForm";
             Text = "Form1";
+            panel1.ResumeLayout(false);
             menuStrip2.ResumeLayout(false);
             menuStrip2.PerformLayout();
             ResumeLayout(false);
@@ -182,5 +220,8 @@
         private ToolStripMenuItem loadToolStripMenuItem;
         private ToolStripMenuItem saveToolStripMenuItem;
         private OpenFileDialog openFileDialog1;
+        private Button buttonMakeObs;
+        private ComboBox comboBoxQ;
+        private ComboBox comboBoxProb;
     }
 }
