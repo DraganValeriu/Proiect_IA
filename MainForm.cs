@@ -9,6 +9,9 @@ namespace Proiect_IA
         private bool isCreatingNode = false;
         public bool isCreatingArc { get; private set; } = false;
 
+        public bool isRemovingNode { get; private set; } = false;
+    
+
         List<Node> nodes = new List<Node>();
         List<Arc> arcs = new List<Arc>();
 
@@ -39,15 +42,24 @@ namespace Proiect_IA
         {
             if (isCreatingNode && e.Button == MouseButtons.Left)
             {
-                Node node = new Node("Node " + nodes.Count, 0.5, 0.5, new Point(e.Location.X - Node.NodeSize, e.Location.Y - Node.NodeSize), this);
-                nodes.Add(node);
+                // Create a new node
+                Node node = new Node("Node " + nodes.Count, 0.5, 0.5,
+                    new Point(e.Location.X - Node.NodeSize / 2, e.Location.Y - Node.NodeSize / 2),
+                    this);
 
+                // Add it to the list and panel
+                nodes.Add(node);
                 panel1.Controls.Add(node);
+
+                // Bring the new node to the front
+                node.BringToFront();
+
+                // Reset the creation state and message
                 isCreatingNode = false;
                 richTextBox.Text = "";
             }
-
         }
+
 
         private void buttonCreateArc_Click(object sender, EventArgs e)
         {
@@ -88,15 +100,27 @@ namespace Proiect_IA
             }
         }
 
+
+
         public void UpdatePanel()
         {
             panel1.Invalidate();
         }
-
+        //felix
         private void buttonRemoveNode_Click(object sender, EventArgs e)
         {
-
+            isRemovingNode = true;
+            richTextBox.Text = "Click the canvas to remove a node";
         }
+
+        public void RemoveNode(Node node)
+        {
+            nodes.Remove(node);
+            arcs.RemoveAll(arc => arc.StartNode == node || arc.EndNode == node);
+            panel1.Controls.Remove(node);
+            panel1.Invalidate();
+        }
+        //
 
         private void loadToolStripMenuItem_Click(object sender, EventArgs e)
         {

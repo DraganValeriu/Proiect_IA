@@ -5,6 +5,7 @@ using System.DirectoryServices;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Proiect_IA
 {
@@ -153,7 +154,16 @@ namespace Proiect_IA
 
                 return;
             }
-            
+
+            if(_parentForm.isRemovingNode)
+            {
+                Node clickedNode = this;
+
+                _parentForm.RemoveNode(clickedNode);
+                return;
+
+            }
+
 
             if (e.Button == MouseButtons.Right)
             {
