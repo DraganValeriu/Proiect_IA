@@ -33,8 +33,8 @@ namespace Proiect_IA
     {
         public Node? For { get; set; } 
         public List<Node?> Given { get; set; }  
-        public List<double> Table { get; set; } 
-
+        public List<double> Table { get; set; }
+     
         public BayesianDefinition(Node node, List<Node> nodes, List<double> table)
         {
             For = new Node(node.Name, node.Prob[0], node.Prob[1],  node.Location, node._parentForm);

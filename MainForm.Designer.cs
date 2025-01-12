@@ -31,6 +31,7 @@
             buttonCreateNode = new Button();
             panel1 = new Panel();
             comboBoxProb = new ComboBox();
+            comboBoxQ = new ComboBox();
             buttonCreateArc = new Button();
             richTextBox = new RichTextBox();
             buttonRemoveArc = new Button();
@@ -41,7 +42,7 @@
             saveToolStripMenuItem = new ToolStripMenuItem();
             openFileDialog1 = new OpenFileDialog();
             buttonMakeObs = new Button();
-            comboBoxQ = new ComboBox();
+            buttonQuery = new Button();
             panel1.SuspendLayout();
             menuStrip2.SuspendLayout();
             SuspendLayout();
@@ -62,6 +63,7 @@
             panel1.AllowDrop = true;
             panel1.BackColor = SystemColors.ControlLight;
             panel1.Controls.Add(comboBoxProb);
+            panel1.Controls.Add(comboBoxQ);
             panel1.Location = new Point(20, 79);
             panel1.Margin = new Padding(2);
             panel1.Name = "panel1";
@@ -72,12 +74,22 @@
             // comboBoxProb
             // 
             comboBoxProb.FormattingEnabled = true;
-            comboBoxProb.Location = new Point(598, 27);
+            comboBoxProb.Location = new Point(519, 0);
             comboBoxProb.Name = "comboBoxProb";
             comboBoxProb.Size = new Size(99, 23);
             comboBoxProb.TabIndex = 10;
             comboBoxProb.Visible = false;
             comboBoxProb.SelectedIndexChanged += comboBoxProb_SelectedIndexChanged;
+            // 
+            // comboBoxQ
+            // 
+            comboBoxQ.FormattingEnabled = true;
+            comboBoxQ.Location = new Point(416, 0);
+            comboBoxQ.Name = "comboBoxQ";
+            comboBoxQ.Size = new Size(99, 23);
+            comboBoxQ.TabIndex = 9;
+            comboBoxQ.Visible = false;
+            comboBoxQ.SelectedIndexChanged += comboBoxQ_SelectedIndexChanged;
             // 
             // buttonCreateArc
             // 
@@ -165,31 +177,32 @@
             // 
             // buttonMakeObs
             // 
-            buttonMakeObs.Location = new Point(521, 28);
+            buttonMakeObs.Location = new Point(436, 30);
             buttonMakeObs.Margin = new Padding(2);
             buttonMakeObs.Name = "buttonMakeObs";
-            buttonMakeObs.Size = new Size(99, 44);
+            buttonMakeObs.Size = new Size(99, 39);
             buttonMakeObs.TabIndex = 8;
             buttonMakeObs.Text = "Make Observations";
             buttonMakeObs.UseVisualStyleBackColor = true;
             buttonMakeObs.Click += buttonMakeObs_Click;
             // 
-            // comboBoxQ
+            // buttonQuery
             // 
-            comboBoxQ.FormattingEnabled = true;
-            comboBoxQ.Location = new Point(521, 77);
-            comboBoxQ.Name = "comboBoxQ";
-            comboBoxQ.Size = new Size(99, 23);
-            comboBoxQ.TabIndex = 9;
-            comboBoxQ.Visible = false;
-            comboBoxQ.SelectedIndexChanged += comboBoxQ_SelectedIndexChanged;
+            buttonQuery.Location = new Point(539, 33);
+            buttonQuery.Margin = new Padding(2);
+            buttonQuery.Name = "buttonQuery";
+            buttonQuery.Size = new Size(99, 36);
+            buttonQuery.TabIndex = 10;
+            buttonQuery.Text = "Query";
+            buttonQuery.UseVisualStyleBackColor = true;
+            buttonQuery.Click += buttonQuery_Click;
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(959, 449);
-            Controls.Add(comboBoxQ);
+            Controls.Add(buttonQuery);
             Controls.Add(buttonMakeObs);
             Controls.Add(buttonRemoveNode);
             Controls.Add(buttonRemoveArc);
@@ -224,5 +237,6 @@
         private Button buttonMakeObs;
         private ComboBox comboBoxQ;
         private ComboBox comboBoxProb;
+        private Button buttonQuery;
     }
 }

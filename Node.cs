@@ -19,7 +19,6 @@ namespace Proiect_IA
 
         //se vor stoca parintii nodului
         public List<Node> Parents;
-
         public List<double> Prob;
         //se stocheaza prob ca
 
@@ -32,7 +31,6 @@ namespace Proiect_IA
         ///                 T               F
         //node n-1 = T    prob[0]          prob[1]
         //node n-1 = F    prob[2]          prob[3]
-        //size 2(linii) * 2
 
         //2. daca nodul are doi parinti 
         ///                             T               F
@@ -40,10 +38,8 @@ namespace Proiect_IA
         //node n-1 = T  node n-2 = F  prob[2]          prob[3]
         //node n-2 = F  node n-2 = T  prob[4]          prob[5]
         //node n-3 = T  node n-2 = F  prob[6]          prob[7]
-        //size 3(linii) * 2
 
         // k parinti directi
-        //size k(linii) * 2
 
         public MainForm _parentForm = null;
         public void setProbability(double probTrue, double probFalse)
@@ -52,7 +48,7 @@ namespace Proiect_IA
             this.Prob[1] = probFalse;
         }
 
-        public void setProbabilityFromList(List<double> nProb)
+        public void SetProbabilityFromList(List<double> nProb)
         {
             Prob = new(new List<double>(nProb));
         }
@@ -100,7 +96,6 @@ namespace Proiect_IA
             contextMenuEdit.Items.Add("Edit", null, ChangeProbability);
             contextMenuEdit.Items.Add("Position: " + location.X + ", " + location.Y);
             
-
             contextMenuInfo = new ContextMenuStrip();
             contextMenuInfo.Items.Add("True:  " + Prob[0]);
             contextMenuInfo.Items.Add("False: " + Prob[1]);
@@ -162,6 +157,13 @@ namespace Proiect_IA
                 _parentForm.RemoveNode(clickedNode);
                 return;
 
+            }
+
+            if(_parentForm.IsQueryingNode)
+            {
+                Node clickedNode = this;
+                List<double> result = _parentForm.EnumerationAsk(clickedNode);
+                MessageBox.Show(" " + result[0] +" ");
             }
 
 
