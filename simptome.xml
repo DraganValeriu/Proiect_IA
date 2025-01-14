@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BIF xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" VERSION="0.3" xsi:schemaLocation="http://www.cs.ubc.ca/labs/lci/fopi/ve/XMLBIFv0_3 http://www.cs.ubc.ca/labs/lci/fopi/ve/XMLBIFv0_3/XMLBIFv0_3.xsd" xmlns="http://www.cs.ubc.ca/labs/lci/fopi/ve/XMLBIFv0_3">
+  <NETWORK xmlns="">
+    <VARIABLE TYPE="nature">
+      <NAME>Gripa</NAME>
+      <OUTCOME>T</OUTCOME>
+      <OUTCOME>F</OUTCOME>
+      <PROPERTY>position = (265, 69)</PROPERTY>
+    </VARIABLE>
+    <VARIABLE TYPE="nature">
+      <NAME>Abces</NAME>
+      <OUTCOME>T</OUTCOME>
+      <OUTCOME>F</OUTCOME>
+      <PROPERTY>position = (534, 67)</PROPERTY>
+    </VARIABLE>
+    <VARIABLE TYPE="nature">
+      <NAME>Febra</NAME>
+      <OUTCOME>T</OUTCOME>
+      <OUTCOME>F</OUTCOME>
+      <PROPERTY>position = (405, 142)</PROPERTY>
+    </VARIABLE>
+    <VARIABLE TYPE="nature">
+      <NAME>Oboseala</NAME>
+      <OUTCOME>T</OUTCOME>
+      <OUTCOME>F</OUTCOME>
+      <PROPERTY>position = (292, 243)</PROPERTY>
+    </VARIABLE>
+    <VARIABLE TYPE="nature">
+      <NAME>Anorexie</NAME>
+      <OUTCOME>T</OUTCOME>
+      <OUTCOME>F</OUTCOME>
+      <PROPERTY>position = (550, 243)</PROPERTY>
+    </VARIABLE>
+    <DEFINITION>
+      <FOR>Gripa</FOR>
+      <TABLE>0.1 0.9</TABLE>
+    </DEFINITION>
+    <DEFINITION>
+      <FOR>Abces</FOR>
+      <TABLE>0.05 0.95</TABLE>
+    </DEFINITION>
+    <DEFINITION>
+      <FOR>Febra</FOR>
+      <GIVEN>Gripa</GIVEN>
+      <GIVEN>Abces</GIVEN>
+      <TABLE>0.8 0.2 0.7 0.3 0.25 0.75 0.05 0.95</TABLE>
+    </DEFINITION>
+    <DEFINITION>
+      <FOR>Oboseala</FOR>
+      <GIVEN>Febra</GIVEN>
+      <TABLE>0.6 0.4 0.2 0.8</TABLE>
+    </DEFINITION>
+    <DEFINITION>
+      <FOR>Anorexie</FOR>
+      <GIVEN>Febra</GIVEN>
+      <TABLE>0.5 0.5 0.1 0.9</TABLE>
+    </DEFINITION>
+  </NETWORK>
+</BIF>
