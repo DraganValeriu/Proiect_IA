@@ -171,6 +171,7 @@ namespace Proiect_IA
                         if (reader.Name == "NAME")
                         {
                             tempVariable.Name = reader.ReadElementContentAsString();
+                            Obs.Add(0);
                         }
                         if (reader.Name == "PROPERTY")
                         {
@@ -207,6 +208,11 @@ namespace Proiect_IA
                                 tempDefinition.Given.Add(nodes.Find(n => n.Name == str));
                             }
                         }
+                        if (reader.Name == "TABLE")
+                        {
+                            string str = reader.ReadElementContentAsString();
+                            tempDefinition.Table = str.Split(' ').Select(v => Convert.ToDouble(v)).ToList();
+                        }
                     }
 
                     if (reader.NodeType == XmlNodeType.EndElement)
@@ -217,9 +223,11 @@ namespace Proiect_IA
                             definitions.Add(x);
                             foreach (var node in x.Given)
                             {
-                                Console.WriteLine($"{node.Name} -> {x.For.Name}");
                                 arcs.Add(new Arc(node, x.For));
+                                nodes.Find(n => n.Name == x.For.Name).AddParent(node);
                             }
+
+                            nodes.Find(n => n.Name == x.For.Name).SetProbabilityFromList(tempDefinition.Table);  
                         }
                     }
 

@@ -131,6 +131,7 @@ namespace Proiect_IA
         {
             textBoxName.Text = CurrentNode.Name;
             int nrGiven = CurrentNode.Parents.Count;
+            //int nrGiven = CurrentNode.Prob.Count / 2 - 1;
             TableLayoutPanel tableLayoutPanel = new TableLayoutPanel
             {
 

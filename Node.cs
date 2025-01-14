@@ -52,6 +52,7 @@ namespace Proiect_IA
         public void SetProbabilityFromList(List<double> nProb)
         {
             Prob = new(new List<double>(nProb));
+            Console.WriteLine(nProb.Count() + "--");
         }
 
         public void AddParent(Node parent)
