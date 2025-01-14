@@ -163,7 +163,7 @@ namespace Proiect_IA
             {
                 Node clickedNode = this;
                 List<double> result = _parentForm.EnumerationAsk(clickedNode);
-                MessageBox.Show(" " + result[0] +" ");
+                MessageBox.Show("P(T) = " + result[0] + "\n\rP(F) = " + result[1]);
             }
 
 

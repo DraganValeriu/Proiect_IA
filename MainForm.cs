@@ -300,20 +300,21 @@ namespace Proiect_IA
             }
 
             Node Y = vars.First();
-            int nodeIndex = bn.FindIndex(node => node.Name == Y.Name);
+            int nodeIndex = bn.FindIndex(node => node.Name.Equals(Y.Name));
             if (nodeIndex == -1)
                 throw new InvalidOperationException($"Node {Y.Name} not found in Bayesian Network.");
 
             int y = obs[nodeIndex];
-            List<Node> newVars = new List<Node>(vars);
-            newVars.Remove(Y);
+            List<Node> new_vars = new List<Node>(vars);
+            new_vars.RemoveAt(0);
 
             if (y != 0)
             {
-                int index = CalculateIndex(Y, bn, obs);
-                if (index < 0 || index >= X.Prob.Count)
-                    throw new IndexOutOfRangeException($"Index {index} is out of bounds for X.Prob.");
-                return X.Prob[index] * EnumerateAll(bn, newVars, X, obs);
+                int index = CalculateIndex(Y, bn, obs, y);
+                if (index < 0 || index >= Y.Prob.Count)
+                    throw new IndexOutOfRangeException($"Index {index} is out of bounds for Y.Prob.");
+
+                return Y.Prob[index] * EnumerateAll(bn, new_vars, X, obs);
             }
             else
             {
@@ -322,28 +323,30 @@ namespace Proiect_IA
 
                 foreach (int i in new int[] { 1, 2 })
                 {
-                    int index = CalculateIndex(Y, bn, newObs);
-                    if (index < 0 || index >= X.Prob.Count)
-                        throw new IndexOutOfRangeException($"Index {index} is out of bounds for X.Prob.");
-
                     newObs[nodeIndex] = i;
-                    sum += X.Prob[index] * EnumerateAll(bn, newVars, X, newObs);
+                    int index = CalculateIndex(Y, bn, newObs, i);
+                    if (index < 0 || index >= Y.Prob.Count)
+                        throw new IndexOutOfRangeException($"Index {index} is out of bounds for Y.Prob.");
+
+                    sum += Y.Prob[index] * EnumerateAll(bn, new_vars, X, newObs);
                 }
                 return sum;
             }
         }
 
-        private int CalculateIndex(Node Y, List<Node> bn, List<int> obs)
+        private int CalculateIndex(Node Y, List<Node> bn, List<int> obs, int val)
         {
             int index = 0;
-
             foreach (Node parent in Y.Parents)
             {
-                int parentIndex = bn.FindIndex(node => node.Name == parent.Name);
-                if (parentIndex == -1)
-                    throw new InvalidOperationException($"Parent {parent.Name} not found in Bayesian Network.");
-                index = (index << 1) + (obs[parentIndex] - 1);
+                int parentIndex = bn.FindIndex(node => node.Name.Equals(parent.Name));
+                if (obs[parentIndex] == 0)
+                {
+                    throw new InvalidOperationException($"Node {Y.Name} not found in Bayesian Network.");
+                }
+                index = (index << 1) | (obs[parentIndex] - 1);
             }
+            index = (index << 1) | (val - 1);
             return index;
         }
 
@@ -354,7 +357,7 @@ namespace Proiect_IA
 
             foreach (var nod in noduri)
             {
-            
+
                 gradIntrare[nod] = nod.Parents.Count;
                 foreach (var parinte in nod.Parents)
                 {
@@ -372,7 +375,7 @@ namespace Proiect_IA
             while (coada.Count > 0)
             {
                 var curent = coada.Dequeue();
-                rezultat.Add(curent); 
+                rezultat.Add(curent);
 
                 if (copii.ContainsKey(curent))
                 {
@@ -389,7 +392,7 @@ namespace Proiect_IA
 
             if (rezultat.Count != noduri.Count)
             {
-                return null; 
+                return null;
             }
 
             return rezultat;
@@ -404,28 +407,32 @@ namespace Proiect_IA
             List<int> obsTrue = new List<int>(Obs);
             List<int> obsFalse = new List<int>(Obs);
 
-            int xIndex = bn.FindIndex(node => node.Name == X.Name);
+            int xIndex = bn.FindIndex(node => node.Name.Equals(X.Name));
             if (xIndex == -1)
                 throw new InvalidOperationException($"Node {X.Name} not found in Bayesian Network.");
 
-            obsTrue[xIndex] = 1;
-            obsFalse[xIndex] = 2;
+            obsTrue[xIndex] = 1;  // T = 1
+            obsFalse[xIndex] = 2; // F = 2
 
             Q[0] = EnumerateAll(bn, sortedNodes, X, obsTrue);
             Q[1] = EnumerateAll(bn, sortedNodes, X, obsFalse);
 
-            double sum = Q.Sum();
-            for (int i = 0; i < Q.Count; i++)
-            {
-                Q[i] /= sum;
-            }
+            double sum = Q[0] + Q[1];
+            Q[0] /= sum;
+            Q[1] /= sum;
             return Q;
         }
+
 
         private void buttonQuery_Click(object sender, EventArgs e)
         {
             richTextBox.Text = "Click the query a node";
             IsQueryingNode = true;
+        }
+
+        private void openFileDialog1_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+
         }
     }
 

@@ -27,30 +27,7 @@ namespace Proiect_IA
 
         private void buttonSaveEdit_Click(object sender, EventArgs e)
         {
-            /*
-            if (double.TryParse(textBoxTrue.Text, out double probTrue) && double.TryParse(textBoxFalse.Text, out double probFalse) && textBoxName.Text.Length > 0)
-            {
-
-                if (probTrue + probFalse == 1)
-                {
-                    ProbabilityTrue = probTrue;
-                    ProbabilityFalse = probFalse;
-                    NodeName = textBoxName.Text;
-                    DialogResult = DialogResult.OK;
-                    this.Close();
-                }
-                else
-                {
-                    MessageBox.Show("Suma probabilitatilor trebuie sa fie 1", "Eroare", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            else
-            {
-                MessageBox.Show("Datele introduse nu sunt valide", "Eroare", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            */
-
-
+        
             //se verifica pe linie 
             // MessageBox.Show("" + CampuriProb.Count);
             bool isValid = true;
@@ -121,7 +98,7 @@ namespace Proiect_IA
                     else
                     {
                         TextBox textBox = new TextBox { Dock = DockStyle.Fill };
-                        tableLayoutPanelAfisare2.Controls.Add(textBox, col, row); // Adăugăm un TextBox gol
+                        tableLayoutPanelAfisare2.Controls.Add(textBox, col, row);
                     }
                 }
             }

@@ -174,6 +174,7 @@
             // openFileDialog1
             // 
             openFileDialog1.FileName = "openFileDialog1";
+            openFileDialog1.FileOk += openFileDialog1_FileOk;
             // 
             // buttonMakeObs
             // 
