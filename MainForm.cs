@@ -283,12 +283,13 @@ namespace Proiect_IA
         {
             comboBoxProb.SelectedIndex = Obs[comboBoxQ.SelectedIndex];
             comboBoxProb.Visible = true;
-
         }
 
         private void comboBoxProb_SelectedIndexChanged(object sender, EventArgs e)
         {
             Obs[comboBoxQ.SelectedIndex] = comboBoxProb.SelectedIndex;
+            nodes[comboBoxQ.SelectedIndex].Observatie = comboBoxProb.SelectedIndex == 1 ? "Obs: A" : comboBoxProb.SelectedIndex == 2 ? "Obs: F" : "";
+            nodes[comboBoxQ.SelectedIndex].ReDrawNode();
         }
 
 

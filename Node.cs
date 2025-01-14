@@ -13,6 +13,7 @@ namespace Proiect_IA
     {
         public Point point { get; set; }
         public string Name { get; set; } = "Node";
+        public string Observatie { get; set; } = "";
 
         //public double probTrue { get; private set; } = 0.5;
         //public double probFalse { get; private set; } = 0.5;
@@ -120,10 +121,11 @@ namespace Proiect_IA
             using (Font font = new Font(Font.FontFamily, 10))
             {
                 g.DrawString(Name, font, Brushes.Black, centerX, centerY, format);
+                g.DrawString(Observatie, font, Brushes.Black, centerX, centerY + 20, format);
             }
         }
 
-        private void ReDrawNode()
+        public void ReDrawNode()
         {
             this.Invalidate();
         }
@@ -156,7 +158,7 @@ namespace Proiect_IA
 
                 _parentForm.RemoveNode(clickedNode);
                 return;
-
+            
             }
 
             if(_parentForm.IsQueryingNode)

@@ -59,6 +59,11 @@ namespace Proiect_IA
 
         private void EditNodeForm_Load(object sender, EventArgs e)
         {
+            CampuriProb = new List<TextBox>();
+            
+            //functie de afisare veche - pentru test
+            //Gabriel
+            /*
             labelProbF.Text = "P(" + CurrentNode.Name + ")=F";
             labelProbT.Text = "P(" + CurrentNode.Name + ")=T";
             textBoxName.Text = CurrentNode.Name;
@@ -116,6 +121,134 @@ namespace Proiect_IA
             );
 
             tableLayoutPanelAfisare2.ResumeLayout();
+            */
+            
+            //functia de afisare preluata din commit-ul lui Valeriu
+            Afisare();
+        }
+
+        public void Afisare()
+        {
+            textBoxName.Text = CurrentNode.Name;
+            int nrGiven = CurrentNode.Parents.Count;
+            TableLayoutPanel tableLayoutPanel = new TableLayoutPanel
+            {
+
+                ColumnCount = 3 + nrGiven - 1,
+                RowCount = (1 << nrGiven) + 1,
+                AutoSize = true,
+                CellBorderStyle = TableLayoutPanelCellBorderStyle.Single,
+                Location = new Point(50, 50)
+
+            };
+            for (int i = 0; i < tableLayoutPanel.ColumnCount; i++)
+            {
+                tableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 170));
+            }
+
+            for (int i = 0; i < tableLayoutPanel.RowCount; i++)
+            {
+                tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 50));
+            }
+
+            for (int i = 0; i < nrGiven; i++)
+            {
+                tableLayoutPanel.Controls.Add(new Label()
+                {
+                    Text = $"{this.CurrentNode.Parents[i].Name}",
+                    TextAlign = ContentAlignment.MiddleCenter,
+                    Dock = DockStyle.Fill
+                }, i, 0);
+            }
+
+            tableLayoutPanel.Controls.Add(new Label()
+            {
+                Text = $"P({this.CurrentNode.Name}) = T",
+                TextAlign = ContentAlignment.MiddleCenter,
+                Dock = DockStyle.Fill
+            }, nrGiven, 0);
+
+            tableLayoutPanel.Controls.Add(new Label()
+            {
+                Text = $"P({this.CurrentNode.Name}) = F",
+                TextAlign = ContentAlignment.MiddleCenter,
+                Dock = DockStyle.Fill
+            }, nrGiven + 1, 0);
+
+            this.Controls.Add(tableLayoutPanel);
+
+            var permutations = GeneratePermutationsInReverseOrder(nrGiven);
+            int r = 1;
+            if (nrGiven < 1)
+            {
+                TextBox a;
+                tableLayoutPanel.Controls.Add(a = new TextBox()
+                {
+                    Text = $"{this.CurrentNode.Prob[(r - 1) * 2]}",
+                    Dock = DockStyle.Fill
+                }, 0, r);
+                CampuriProb.Add(a);
+                tableLayoutPanel.Controls.Add(a = new TextBox()
+                {
+                    Text = $"{this.CurrentNode.Prob[(r - 1) * 2 + 1]}",
+                    Dock = DockStyle.Fill
+                }, 1, r);
+                CampuriProb.Add(a);
+
+                return;
+            }
+
+
+            foreach (var permutation in permutations)
+            {
+
+                for (int i = 0; i < permutation.Length; i++)
+                {
+                    tableLayoutPanel.Controls.Add(new Label()
+                    {
+                        Text = permutation[i],
+                        TextAlign = ContentAlignment.MiddleCenter,
+                        Dock = DockStyle.Fill
+                    }, i, r);
+
+                }
+                for (int i = 0; i < 2; i++)
+                {
+                    TextBox a;
+                    tableLayoutPanel.Controls.Add(a = new TextBox()
+                    {
+                        Text = $"{this.CurrentNode.Prob[(r - 1) * 2 + i]}",
+                        Dock = DockStyle.Fill
+                    }, nrGiven + i, r);
+                    CampuriProb.Add(a);
+                }
+                r++;
+            }
+            buttonSaveEdit.Location = new Point(tableLayoutPanel.Bounds.Right + 20, buttonSaveEdit.Location.Y);
+            int formPadding = 50;
+            this.Size = new Size(
+                buttonSaveEdit.Bounds.Right + formPadding,
+                Math.Max(buttonSaveEdit.Bounds.Bottom, tableLayoutPanel.Bounds.Bottom) + formPadding
+            );
+            tableLayoutPanel.ResumeLayout();
+        }
+        private List<string[]> GeneratePermutationsInReverseOrder(int k)
+        {
+            var result = new List<string[]>();
+            int totalPermutations = 1 << k;
+
+            for (int i = 0; i < totalPermutations; i++)
+            {
+                var permutation = new bool[k];
+                for (int j = 0; j < k; j++)
+                {
+                    permutation[j] = (i & (1 << (k - j - 1))) != 0;
+                }
+                var str = string.Join(" ", permutation.Select(p => p ? "F" : "T")).Split(" ");
+                result.Add(str);
+            }
+            
+            return result;
         }
 
 
