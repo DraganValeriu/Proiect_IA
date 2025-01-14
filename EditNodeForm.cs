@@ -27,9 +27,6 @@ namespace Proiect_IA
 
         private void buttonSaveEdit_Click(object sender, EventArgs e)
         {
-        
-            //se verifica pe linie 
-            // MessageBox.Show("" + CampuriProb.Count);
             bool isValid = true;
             for (int i = 0; i <= CampuriProb.Count - 2; i = i + 2)
             {

@@ -194,10 +194,7 @@ namespace Proiect_IA
 
             EditNodeForm probabilityForm = new EditNodeForm();
             probabilityForm.CurrentNode = this;
-            //probabilityForm.NodeName = this.Name;
             probabilityForm.CampuriProb = new List<TextBox>(Prob.Count);
-            //probabilityForm.ProbabilityTrue = prob[0];
-            //probabilityForm.ProbabilityFalse = prob[1];
             for (int i = 0; i < Prob.Count; i++)
             {
                 TextBox textBox = new TextBox
@@ -210,8 +207,6 @@ namespace Proiect_IA
 
             if (probabilityForm.ShowDialog() == DialogResult.OK)
             {
-                 //Prob[0] = probabilityForm.ProbabilityTrue; 
-                 //Prob[1] = probabilityForm.ProbabilityFalse;
                  UpdateContext();
             }
         }

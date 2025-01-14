@@ -51,25 +51,22 @@ namespace Proiect_IA
         {
             if (isCreatingNode && e.Button == MouseButtons.Left)
             {
-                // Create a new node
                 Node node = new Node("Node " + nodes.Count, 0.5, 0.5,
                     new Point(e.Location.X - Node.NodeSize / 2, e.Location.Y - Node.NodeSize / 2),
                     this);
 
-                // Add it to the list and panel
                 nodes.Add(node);
                 Obs.Add(0);
                 panel1.Controls.Add(node);
 
-                // Bring the new node to the front
                 node.BringToFront();
 
-                // Reset the creation state and message
                 isCreatingNode = false;
 
             }
             richTextBox.Text = "";
             IsQueryingNode = false;
+            isRemovingNode = false;
             comboBoxProb.Visible = false;
             comboBoxQ.Visible = false;
         }
@@ -78,6 +75,8 @@ namespace Proiect_IA
         private void buttonCreateArc_Click(object sender, EventArgs e)
         {
             isCreatingArc = true;
+            isRemovingNode = false;
+            IsQueryingNode = false;
             richTextBox.Text = "Chose 2 nodes to create an arc";
         }
 
@@ -518,9 +517,8 @@ namespace Proiect_IA
             {
                 string filePath = saveFileDialog1.FileName;
 
-                // Call the SaveToXML method with the selected file path
                 SaveToXML(filePath);
-                MessageBox.Show("Saved!", "Salvare reușită", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Salvarea fişierului realizată cu succes!", "Salvare reușită", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             }
         }

@@ -40,8 +40,6 @@ namespace Proiect_IA
 
                 Point start = new Point(StartNode.Location.X + StartNode.Width / 2, StartNode.Location.Y + StartNode.Height / 2);
                 Point end = new Point(EndNode.Location.X + EndNode.Width / 2, EndNode.Location.Y + EndNode.Height / 2);
-                /*  Point start = new Point(StartNode.Location.X + StartNode.Width, StartNode.Location.Y );
-                  Point end = new Point(EndNode.Location.X +  StartNode.Width, EndNode.Location.Y );*/
                 g.DrawLine(pen, start, end);
             }
         }
