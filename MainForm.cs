@@ -1,5 +1,6 @@
 ﻿using System.Globalization;
 using System.Linq.Expressions;
+using System.Windows.Forms;
 using System.Windows.Forms.Design;
 using System.Xml;
 using System.Xml.Linq;
@@ -119,21 +120,28 @@ namespace Proiect_IA
         {
             panel1.Invalidate();
         }
-        //felix
+
         private void buttonRemoveNode_Click(object sender, EventArgs e)
         {
             isRemovingNode = true;
-            richTextBox.Text = "Click the canvas to remove a node";
+            richTextBox.Text = "Choose node to delete";
         }
 
         public void RemoveNode(Node node)
         {
+            var arcsToRemove = arcs.Where(arc => arc.StartNode == node || arc.EndNode == node).ToList();
+
+            foreach (var arc in arcsToRemove)
+            {
+                panel1.Paint -= arc.Arc_Paint;
+                arcs.Remove(arc);
+                panel1.Controls.Remove(arc);
+            }
             nodes.Remove(node);
-            arcs.RemoveAll(arc => arc.StartNode == node || arc.EndNode == node);
             panel1.Controls.Remove(node);
             panel1.Invalidate();
         }
-        //
+
 
         private void loadToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -227,7 +235,7 @@ namespace Proiect_IA
                                 nodes.Find(n => n.Name == x.For.Name).AddParent(node);
                             }
 
-                            nodes.Find(n => n.Name == x.For.Name).SetProbabilityFromList(tempDefinition.Table);  
+                            nodes.Find(n => n.Name == x.For.Name).SetProbabilityFromList(tempDefinition.Table);
                         }
                     }
 
@@ -448,6 +456,75 @@ namespace Proiect_IA
         {
 
         }
+        private void SaveToXML(string path)
+        {
+            XNamespace xsiNamespace = "http://www.w3.org/2001/XMLSchema-instance";
+            XNamespace bifNamespace = "http://www.cs.ubc.ca/labs/lci/fopi/ve/XMLBIFv0_3";
+
+            XElement xmlDocument = new XElement(bifNamespace + "BIF",
+                new XAttribute(XNamespace.Xmlns + "xsi", xsiNamespace),
+                new XAttribute("VERSION", "0.3"),
+                new XAttribute(xsiNamespace + "schemaLocation", "http://www.cs.ubc.ca/labs/lci/fopi/ve/XMLBIFv0_3 http://www.cs.ubc.ca/labs/lci/fopi/ve/XMLBIFv0_3/XMLBIFv0_3.xsd")
+            );
+
+            XElement networkElement = new XElement("NETWORK");
+
+            // Adaugare variabile
+            foreach (var node in nodes)
+            {
+                XElement variableElement = new XElement("VARIABLE", new XAttribute("TYPE", "nature"),
+                    new XElement("NAME", node.Name),
+                    new XElement("OUTCOME", "T"),
+                    new XElement("OUTCOME", "F"),
+                    new XElement("PROPERTY", $"position = ({node.point.X}, {node.point.Y})")
+                );
+                networkElement.Add(variableElement);
+            }
+
+            // Adaugare definitii
+            foreach (var node in nodes)
+            {
+                XElement definitionElement = new XElement("DEFINITION",
+                    new XElement("FOR", node.Name)
+                );
+
+                foreach (var parent in node.Parents)
+                {
+                    definitionElement.Add(new XElement("GIVEN", parent.Name));
+                }
+
+                definitionElement.Add(new XElement("TABLE", string.Join(" ", node.Prob.Select(t => t.ToString(CultureInfo.InvariantCulture)))));
+
+                networkElement.Add(definitionElement);
+            }
+
+            xmlDocument.Add(networkElement);
+
+            xmlDocument.Save(path);
+            isCreatingNode = false;
+            isCreatingArc = false;
+            isRemovingNode = false;
+            IsQueryingNode = false;
+        }
+
+
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            saveFileDialog1.Filter = "Fișiere XML (*.xml)|*.xml|Toate fișierele (*.*)|*.*";
+            saveFileDialog1.DefaultExt = "xml";
+            saveFileDialog1.AddExtension = true;
+
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                string filePath = saveFileDialog1.FileName;
+
+                // Call the SaveToXML method with the selected file path
+                SaveToXML(filePath);
+                MessageBox.Show("Saved!", "Salvare reușită", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            }
+        }
+
     }
 
 }

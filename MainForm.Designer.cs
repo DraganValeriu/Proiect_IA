@@ -37,6 +37,7 @@
             buttonRemoveArc = new Button();
             buttonRemoveNode = new Button();
             openFileDialog1 = new OpenFileDialog();
+            saveFileDialog1 = new SaveFileDialog();
             buttonMakeObs = new Button();
             buttonQuery = new Button();
             fileToolStripMenuItem = new ToolStripMenuItem();
@@ -176,15 +177,16 @@
             // loadToolStripMenuItem
             // 
             loadToolStripMenuItem.Name = "loadToolStripMenuItem";
-            loadToolStripMenuItem.Size = new Size(100, 22);
+            loadToolStripMenuItem.Size = new Size(180, 22);
             loadToolStripMenuItem.Text = "Load";
             loadToolStripMenuItem.Click += loadToolStripMenuItem_Click;
             // 
             // saveToolStripMenuItem
             // 
             saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            saveToolStripMenuItem.Size = new Size(100, 22);
+            saveToolStripMenuItem.Size = new Size(180, 22);
             saveToolStripMenuItem.Text = "Save";
+            saveToolStripMenuItem.Click += saveToolStripMenuItem_Click;
             // 
             // menuStrip2
             // 
@@ -232,6 +234,7 @@
         private Button buttonRemoveArc;
         private Button buttonRemoveNode;
         private OpenFileDialog openFileDialog1;
+        private SaveFileDialog saveFileDialog1;
         private Button buttonMakeObs;
         private ComboBox comboBoxQ;
         private ComboBox comboBoxProb;

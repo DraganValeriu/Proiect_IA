@@ -90,7 +90,7 @@ namespace Proiect_IA
             this.BackColor = Color.Transparent;
             //this.Location = new Point(location.X - NodeSize / 2, location.Y - NodeSize / 2);
             this.Location = new Point(location.X, location.Y );
-
+            this.point=location;
             this.Paint += Node_Paint;
             this.MouseClick += Node_MouseClick;
 
