@@ -435,6 +435,11 @@ namespace Proiect_IA
         {
 
         }
+
+        private void menuStrip2_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
     }
 
 }

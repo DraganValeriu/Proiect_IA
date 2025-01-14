@@ -36,13 +36,13 @@
             richTextBox = new RichTextBox();
             buttonRemoveArc = new Button();
             buttonRemoveNode = new Button();
-            menuStrip2 = new MenuStrip();
-            fileToolStripMenuItem = new ToolStripMenuItem();
-            loadToolStripMenuItem = new ToolStripMenuItem();
-            saveToolStripMenuItem = new ToolStripMenuItem();
             openFileDialog1 = new OpenFileDialog();
             buttonMakeObs = new Button();
             buttonQuery = new Button();
+            fileToolStripMenuItem = new ToolStripMenuItem();
+            loadToolStripMenuItem = new ToolStripMenuItem();
+            saveToolStripMenuItem = new ToolStripMenuItem();
+            menuStrip2 = new MenuStrip();
             panel1.SuspendLayout();
             menuStrip2.SuspendLayout();
             SuspendLayout();
@@ -139,38 +139,6 @@
             buttonRemoveNode.UseVisualStyleBackColor = true;
             buttonRemoveNode.Click += buttonRemoveNode_Click;
             // 
-            // menuStrip2
-            // 
-            menuStrip2.BackColor = SystemColors.ButtonHighlight;
-            menuStrip2.ImageScalingSize = new Size(24, 24);
-            menuStrip2.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem });
-            menuStrip2.Location = new Point(0, 0);
-            menuStrip2.Name = "menuStrip2";
-            menuStrip2.Padding = new Padding(4, 1, 0, 1);
-            menuStrip2.Size = new Size(959, 24);
-            menuStrip2.TabIndex = 7;
-            menuStrip2.Text = "menuStrip2";
-            // 
-            // fileToolStripMenuItem
-            // 
-            fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { loadToolStripMenuItem, saveToolStripMenuItem });
-            fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            fileToolStripMenuItem.Size = new Size(37, 22);
-            fileToolStripMenuItem.Text = "File";
-            // 
-            // loadToolStripMenuItem
-            // 
-            loadToolStripMenuItem.Name = "loadToolStripMenuItem";
-            loadToolStripMenuItem.Size = new Size(100, 22);
-            loadToolStripMenuItem.Text = "Load";
-            loadToolStripMenuItem.Click += loadToolStripMenuItem_Click;
-            // 
-            // saveToolStripMenuItem
-            // 
-            saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            saveToolStripMenuItem.Size = new Size(100, 22);
-            saveToolStripMenuItem.Text = "Save";
-            // 
             // openFileDialog1
             // 
             openFileDialog1.FileName = "openFileDialog1";
@@ -197,6 +165,39 @@
             buttonQuery.Text = "Query";
             buttonQuery.UseVisualStyleBackColor = true;
             buttonQuery.Click += buttonQuery_Click;
+            // 
+            // fileToolStripMenuItem
+            // 
+            fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { loadToolStripMenuItem, saveToolStripMenuItem });
+            fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            fileToolStripMenuItem.Size = new Size(37, 22);
+            fileToolStripMenuItem.Text = "File";
+            // 
+            // loadToolStripMenuItem
+            // 
+            loadToolStripMenuItem.Name = "loadToolStripMenuItem";
+            loadToolStripMenuItem.Size = new Size(100, 22);
+            loadToolStripMenuItem.Text = "Load";
+            loadToolStripMenuItem.Click += loadToolStripMenuItem_Click;
+            // 
+            // saveToolStripMenuItem
+            // 
+            saveToolStripMenuItem.Name = "saveToolStripMenuItem";
+            saveToolStripMenuItem.Size = new Size(100, 22);
+            saveToolStripMenuItem.Text = "Save";
+            // 
+            // menuStrip2
+            // 
+            menuStrip2.BackColor = SystemColors.ButtonHighlight;
+            menuStrip2.ImageScalingSize = new Size(24, 24);
+            menuStrip2.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem });
+            menuStrip2.Location = new Point(0, 0);
+            menuStrip2.Name = "menuStrip2";
+            menuStrip2.Padding = new Padding(4, 1, 0, 1);
+            menuStrip2.Size = new Size(959, 24);
+            menuStrip2.TabIndex = 7;
+            menuStrip2.Text = "menuStrip2";
+            menuStrip2.ItemClicked += menuStrip2_ItemClicked;
             // 
             // MainForm
             // 
@@ -230,14 +231,14 @@
         private RichTextBox richTextBox;
         private Button buttonRemoveArc;
         private Button buttonRemoveNode;
-        private MenuStrip menuStrip2;
-        private ToolStripMenuItem fileToolStripMenuItem;
-        private ToolStripMenuItem loadToolStripMenuItem;
-        private ToolStripMenuItem saveToolStripMenuItem;
         private OpenFileDialog openFileDialog1;
         private Button buttonMakeObs;
         private ComboBox comboBoxQ;
         private ComboBox comboBoxProb;
         private Button buttonQuery;
+        private ToolStripMenuItem fileToolStripMenuItem;
+        private ToolStripMenuItem loadToolStripMenuItem;
+        private ToolStripMenuItem saveToolStripMenuItem;
+        private MenuStrip menuStrip2;
     }
 }

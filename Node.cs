@@ -121,7 +121,7 @@ namespace Proiect_IA
             using (Font font = new Font(Font.FontFamily, 10))
             {
                 g.DrawString(Name, font, Brushes.Black, centerX, centerY, format);
-                g.DrawString(Observatie, font, Brushes.Black, centerX, centerY + 20, format);
+                g.DrawString(Observatie, font, Brushes.Red, centerX, centerY + 20, format);
             }
         }
 

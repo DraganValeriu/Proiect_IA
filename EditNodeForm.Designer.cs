@@ -32,13 +32,7 @@
             label1 = new Label();
             textBoxName = new TextBox();
             buttonSaveEdit = new Button();
-            tableLayoutPanelAfisare = new TableLayoutPanel();
-            NodeX = new Label();
             contextMenuStrip1 = new ContextMenuStrip(components);
-            tableLayoutPanelAfisare2 = new TableLayoutPanel();
-            labelProbT = new Label();
-            labelProbF = new Label();
-            tableLayoutPanelAfisare.SuspendLayout();
             SuspendLayout();
             // 
             // label1
@@ -70,77 +64,16 @@
             buttonSaveEdit.UseVisualStyleBackColor = true;
             buttonSaveEdit.Click += buttonSaveEdit_Click;
             // 
-            // tableLayoutPanelAfisare
-            // 
-            tableLayoutPanelAfisare.ColumnCount = 1;
-            tableLayoutPanelAfisare.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanelAfisare.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanelAfisare.Controls.Add(NodeX, 0, 0);
-            tableLayoutPanelAfisare.Location = new Point(95, 45);
-            tableLayoutPanelAfisare.Name = "tableLayoutPanelAfisare";
-            tableLayoutPanelAfisare.RowCount = 1;
-            tableLayoutPanelAfisare.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanelAfisare.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanelAfisare.Size = new Size(83, 23);
-            tableLayoutPanelAfisare.TabIndex = 6;
-            // 
-            // NodeX
-            // 
-            NodeX.AutoSize = true;
-            NodeX.Location = new Point(2, 0);
-            NodeX.Margin = new Padding(2, 0, 2, 0);
-            NodeX.Name = "NodeX";
-            NodeX.Size = new Size(46, 15);
-            NodeX.TabIndex = 1;
-            NodeX.Text = "Node X";
-            // 
             // contextMenuStrip1
             // 
             contextMenuStrip1.Name = "contextMenuStrip1";
             contextMenuStrip1.Size = new Size(61, 4);
-            // 
-            // tableLayoutPanelAfisare2
-            // 
-            tableLayoutPanelAfisare2.ColumnCount = 2;
-            tableLayoutPanelAfisare2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanelAfisare2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanelAfisare2.Location = new Point(210, 72);
-            tableLayoutPanelAfisare2.Name = "tableLayoutPanelAfisare2";
-            tableLayoutPanelAfisare2.RowCount = 1;
-            tableLayoutPanelAfisare2.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanelAfisare2.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanelAfisare2.Size = new Size(166, 23);
-            tableLayoutPanelAfisare2.TabIndex = 7;
-            // 
-            // labelProbT
-            // 
-            labelProbT.AutoSize = true;
-            labelProbT.Location = new Point(210, 45);
-            labelProbT.Margin = new Padding(2, 0, 2, 0);
-            labelProbT.Name = "labelProbT";
-            labelProbT.Size = new Size(83, 15);
-            labelProbT.TabIndex = 8;
-            labelProbT.Text = "P(current) = T:";
-            // 
-            // labelProbF
-            // 
-            labelProbF.AutoSize = true;
-            labelProbF.Location = new Point(293, 45);
-            labelProbF.Margin = new Padding(2, 0, 2, 0);
-            labelProbF.Name = "labelProbF";
-            labelProbF.Size = new Size(83, 15);
-            labelProbF.TabIndex = 9;
-            labelProbF.Text = "P(current) = F:";
             // 
             // EditNodeForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(487, 247);
-            Controls.Add(labelProbF);
-            Controls.Add(labelProbT);
-            Controls.Add(tableLayoutPanelAfisare2);
-            Controls.Add(tableLayoutPanelAfisare);
             Controls.Add(buttonSaveEdit);
             Controls.Add(textBoxName);
             Controls.Add(label1);
@@ -148,8 +81,6 @@
             Name = "EditNodeForm";
             Text = "EditNode";
             Load += EditNodeForm_Load;
-            tableLayoutPanelAfisare.ResumeLayout(false);
-            tableLayoutPanelAfisare.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -158,11 +89,6 @@
         private Label label1;
         private TextBox textBoxName;
         private Button buttonSaveEdit;
-        private TableLayoutPanel tableLayoutPanelAfisare;
-        private Label NodeX;
         private ContextMenuStrip contextMenuStrip1;
-        private TableLayoutPanel tableLayoutPanelAfisare2;
-        private Label labelProbT;
-        private Label labelProbF;
     }
 }
